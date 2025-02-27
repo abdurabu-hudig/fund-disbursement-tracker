@@ -13,14 +13,14 @@ const SignatureSection: React.FC = () => {
     <div className="mt-8 mb-4">
       <h3 className="font-arabic text-lg font-medium text-stone-700 mb-4 text-right">التواقيع</h3>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="flex flex-wrap justify-between gap-2">
         {signatureFields.map((field) => (
-          <div key={field.name} className="border border-stone-200 rounded-md p-4 bg-white">
+          <div key={field.name} className="border border-stone-200 rounded-md p-3 bg-white flex-1 min-w-[120px]">
             <div className="text-center mb-2">
-              <span className="font-arabic text-stone-600">{field.label}</span>
+              <span className="font-arabic text-stone-600 text-sm">{field.label}</span>
             </div>
-            <div className="h-24 border border-dashed border-stone-300 rounded bg-stone-50 flex items-center justify-center">
-              <span className="text-stone-400 text-sm font-arabic">مكان التوقيع</span>
+            <div className="h-20 border border-dashed border-stone-300 rounded bg-stone-50 flex items-center justify-center">
+              <span className="text-stone-400 text-xs font-arabic">مكان التوقيع</span>
             </div>
           </div>
         ))}
