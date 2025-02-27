@@ -84,15 +84,13 @@ const VoucherForm: React.FC = () => {
     <div className="container mx-auto p-4 animate-fade-in page-transition">
       {/* A4 Paper Dimensions: 210mm × 297mm */}
       <div className="bg-white rounded-lg shadow-soft overflow-hidden mb-6 max-w-[210mm] mx-auto min-h-[297mm] flex flex-col">
-        {/* Header with organization logo and information */}
-        <div className="bg-stone-50 p-2 border-b border-stone-200">
-          <div className="flex justify-center">
-            <img 
-              src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
-              alt="صندوق تنمية الخدمات م/شبوة" 
-              className="h-auto w-auto max-h-28 object-contain"
-            />
-          </div>
+        {/* Header with organization logo and information - Full width header */}
+        <div className="w-full border-b border-stone-200">
+          <img 
+            src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
+            alt="صندوق تنمية الخدمات م/شبوة" 
+            className="w-full h-auto object-cover"
+          />
         </div>
 
         {/* Voucher title */}
