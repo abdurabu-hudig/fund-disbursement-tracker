@@ -83,10 +83,14 @@ const VoucherForm: React.FC = () => {
   return (
     <div className="container mx-auto p-4 animate-fade-in page-transition">
       <div className="bg-white rounded-lg shadow-soft overflow-hidden mb-6">
-        {/* Header with placeholder for organization images */}
+        {/* Header with organization logo and information */}
         <div className="bg-stone-50 p-4 border-b border-stone-200">
-          <div className="h-16 flex items-center justify-center text-stone-400">
-            <span className="font-arabic">مكان شعار وصور المؤسسة</span>
+          <div className="flex justify-center">
+            <img 
+              src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
+              alt="صندوق تنمية الخدمات م/شبوة" 
+              className="w-full max-w-3xl h-auto"
+            />
           </div>
         </div>
 
