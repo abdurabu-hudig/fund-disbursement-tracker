@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +40,38 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* A4 Print Styles */
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .bg-white {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Hide navigation and action buttons when printing */
+  button[onClick*="handleBackToDashboard"],
+  button[onClick*="handlePrint"],
+  button[onClick*="handleSave"] {
+    display: none !important;
+  }
+  
+  /* Ensure the document fits on A4 paper */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
 }

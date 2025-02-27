@@ -82,29 +82,30 @@ const VoucherForm: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 animate-fade-in page-transition">
-      <div className="bg-white rounded-lg shadow-soft overflow-hidden mb-6">
+      {/* A4 Paper Dimensions: 210mm × 297mm */}
+      <div className="bg-white rounded-lg shadow-soft overflow-hidden mb-6 max-w-[210mm] mx-auto min-h-[297mm] flex flex-col">
         {/* Header with organization logo and information */}
-        <div className="bg-stone-50 p-4 border-b border-stone-200">
+        <div className="bg-stone-50 p-2 border-b border-stone-200">
           <div className="flex justify-center">
             <img 
               src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
               alt="صندوق تنمية الخدمات م/شبوة" 
-              className="w-full max-w-3xl h-auto"
+              className="h-auto w-auto max-h-28 object-contain"
             />
           </div>
         </div>
 
         {/* Voucher title */}
-        <div className="p-6 border-b border-stone-100">
+        <div className="py-4 px-6 border-b border-stone-100">
           <h1 className="text-2xl font-bold text-center font-arabic text-stone-800">
             سند صرف كرت تحصيل غرامة
           </h1>
         </div>
 
-        {/* Voucher details */}
+        {/* Date on the left side and location on the right */}
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div className="space-y-2">
+          <div className="flex flex-row-reverse justify-between items-start mb-6">
+            <div className="space-y-2 flex-1 ml-4">
               <Label htmlFor="location" className="font-arabic text-right block">اسم الموقع / البوابة / النقطة</Label>
               <Input
                 id="location"
@@ -115,7 +116,7 @@ const VoucherForm: React.FC = () => {
                 placeholder="أدخل اسم الموقع"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 w-48">
               <Label htmlFor="date" className="font-arabic text-right block">التاريخ</Label>
               <Popover>
                 <PopoverTrigger asChild>
@@ -145,7 +146,7 @@ const VoucherForm: React.FC = () => {
           </div>
 
           {/* Data entry table */}
-          <div className="my-8">
+          <div className="my-6">
             <h3 className="font-arabic text-lg font-medium text-stone-700 mb-4 text-right">بيانات السند</h3>
             <FormTable rows={rows} setRows={setRows} />
           </div>
@@ -205,8 +206,8 @@ const VoucherForm: React.FC = () => {
           <SignatureSection />
         </div>
 
-        {/* Action buttons */}
-        <div className="bg-stone-50 p-4 border-t border-stone-200 flex flex-wrap gap-3 justify-between">
+        {/* Action buttons - pushing them to the bottom of A4 with flex-grow */}
+        <div className="mt-auto bg-stone-50 p-4 border-t border-stone-200 flex flex-wrap gap-3 justify-between">
           <Button variant="outline" onClick={handleBackToDashboard} className="font-arabic flex items-center gap-2">
             <ArrowLeft size={16} />
             <span>العودة للرئيسية</span>
