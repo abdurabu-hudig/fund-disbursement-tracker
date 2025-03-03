@@ -12,11 +12,11 @@ interface FormTableProps {
 }
 
 const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
-  // Ensure we always have exactly 3 rows for the voucher
+  // Ensure we always have exactly 1 row for the voucher based on the reference image
   useEffect(() => {
-    if (rows.length < 3) {
+    if (rows.length < 1) {
       const newRows = [...rows];
-      while (newRows.length < 3) {
+      while (newRows.length < 1) {
         newRows.push({
           id: uuidv4(),
           fineCardNumber: '',
@@ -29,27 +29,6 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
       setRows(newRows);
     }
   }, [rows, setRows]);
-
-  const handleAddRow = () => {
-    setRows([
-      ...rows,
-      {
-        id: uuidv4(),
-        fineCardNumber: '',
-        receiptNumber: '',
-        improvementAmount: 0,
-        fineAmount: 0,
-        dueAmount: 0,
-      },
-    ]);
-  };
-
-  const handleRemoveRow = (id: string) => {
-    // We don't allow removing if it would result in less than 3 rows
-    if (rows.length > 3) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
 
   const handleUpdateRow = (id: string, field: keyof VoucherRow, value: string | number) => {
     setRows(
@@ -78,71 +57,64 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
 
   return (
     <div className="overflow-x-auto my-4">
-      <table className="min-w-full bg-white divide-y divide-stone-200 rounded-md overflow-hidden shadow-soft">
+      <table className="min-w-full bg-white divide-y divide-stone-200 rounded-md overflow-hidden shadow-soft border-2 border-stone-300">
         <thead>
-          <tr className="bg-stone-50">
-            <th className="font-arabic p-3 text-right">#</th>
-            <th className="font-arabic p-3 text-right">رقم كرت الغرامة</th>
-            <th className="font-arabic p-3 text-right">رقم سند التحصيل</th>
-            <th className="font-arabic p-3 text-right">مبلغ التحسين</th>
-            <th className="font-arabic p-3 text-right">مبلغ الغرامة</th>
-            <th className="font-arabic p-3 text-right">المبلغ المستحق</th>
-            <th className="font-arabic p-3 text-center">الإجراء</th>
+          <tr className="bg-stone-100 text-center">
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">رقم كرت الغرامة</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">رقم سند التحصيل</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">مبلغ التحسين</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">مبلغ الغرامة</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">المبلغ المستحق</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-stone-200">
-          {rows.slice(0, 3).map((row, index) => (
-            <tr key={row.id} className="hover:bg-stone-50 transition-colors">
-              <td className="p-3 text-center text-stone-500">{index + 1}</td>
-              <td className="p-3">
+        <tbody>
+          {rows.slice(0, 1).map((row, index) => (
+            <tr key={row.id} className="hover:bg-stone-50 transition-colors border-2 border-stone-300">
+              <td className="p-3 border-2 border-stone-300">
                 <Input
                   value={row.fineCardNumber}
                   onChange={(e) => handleUpdateRow(row.id, 'fineCardNumber', e.target.value)}
-                  className="font-arabic text-right"
+                  className="font-arabic text-center"
                   dir="rtl"
                 />
               </td>
-              <td className="p-3">
+              <td className="p-3 border-2 border-stone-300">
                 <Input
                   value={row.receiptNumber}
                   onChange={(e) => handleUpdateRow(row.id, 'receiptNumber', e.target.value)}
-                  className="font-arabic text-right"
+                  className="font-arabic text-center"
                   dir="rtl"
                 />
               </td>
-              <td className="p-3">
+              <td className="p-3 border-2 border-stone-300">
                 <Input
                   type="number"
                   value={row.improvementAmount || ''}
                   onChange={(e) => handleUpdateRow(row.id, 'improvementAmount', Number(e.target.value))}
-                  className="font-arabic text-right"
+                  className="font-arabic text-center"
                   dir="rtl"
                 />
               </td>
-              <td className="p-3 font-arabic text-right text-stone-600 font-medium">
+              <td className="p-3 font-arabic text-center border-2 border-stone-300">
                 {formatCurrency(row.fineAmount || 0)}
               </td>
-              <td className="p-3 font-arabic text-right text-stone-600 font-medium">
+              <td className="p-3 font-arabic text-center border-2 border-stone-300">
                 {formatCurrency(row.dueAmount || 0)}
-              </td>
-              <td className="p-3 text-center">
-                {/* Button removed since we maintain exactly 3 rows */}
               </td>
             </tr>
           ))}
-          {/* Summary row */}
-          <tr className="bg-stone-100 font-bold">
-            <td colSpan={3} className="p-3 text-right font-arabic">الإجمالي</td>
-            <td className="p-3 font-arabic text-right border-t-2 border-stone-300">
+          {/* Summary row - spans receiptNumber and fineCardNumber columns */}
+          <tr className="bg-stone-100 font-bold border-2 border-stone-300">
+            <td colSpan={2} className="p-3 text-center font-arabic border-2 border-stone-300">الاجمالي</td>
+            <td className="p-3 font-arabic text-center border-2 border-stone-300">
               {formatCurrency(totalImprovementAmount)}
             </td>
-            <td className="p-3 font-arabic text-right border-t-2 border-stone-300">
+            <td className="p-3 font-arabic text-center border-2 border-stone-300">
               {formatCurrency(totalFineAmount)}
             </td>
-            <td className="p-3 font-arabic text-right border-t-2 border-stone-300">
+            <td className="p-3 font-arabic text-center border-2 border-stone-300">
               {formatCurrency(totalDueAmount)}
             </td>
-            <td className="p-3"></td>
           </tr>
         </tbody>
       </table>

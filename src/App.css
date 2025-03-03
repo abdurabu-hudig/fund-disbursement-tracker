@@ -102,6 +102,12 @@
   /* Make table more compact */
   table {
     font-size: 10px !important;
+    border-collapse: collapse !important;
+  }
+  
+  /* Table borders for printing */
+  table, th, td {
+    border: 1px solid #888 !important;
   }
   
   /* Ensure the header image fits properly */
@@ -133,4 +139,10 @@
     font-size: 0.7rem !important;
     margin-bottom: 0 !important;
   }
+  
+  /* Hide input borders when printing */
+  input {
+    border: none !important;
+  }
 }
+

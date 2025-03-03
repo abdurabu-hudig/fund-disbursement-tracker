@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -30,23 +29,7 @@ const VoucherForm: React.FC = () => {
       improvementAmount: 0,
       fineAmount: 0,
       dueAmount: 0,
-    },
-    {
-      id: uuidv4(),
-      fineCardNumber: '',
-      receiptNumber: '',
-      improvementAmount: 0,
-      fineAmount: 0,
-      dueAmount: 0,
-    },
-    {
-      id: uuidv4(),
-      fineCardNumber: '',
-      receiptNumber: '',
-      improvementAmount: 0,
-      fineAmount: 0,
-      dueAmount: 0,
-    },
+    }
   ]);
 
   const handleSave = () => {
