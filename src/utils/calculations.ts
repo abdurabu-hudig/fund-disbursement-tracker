@@ -16,10 +16,10 @@ export interface VoucherSummary {
 }
 
 export const calculateRowDueAmount = (
-  improvementAmount: number,
-  fineAmount: number
+  improvementAmount: number
 ): number => {
-  return improvementAmount + fineAmount;
+  // Due amount is same as fine amount (50% of improvement)
+  return improvementAmount * 0.5;
 };
 
 export const calculateVoucherSummary = (

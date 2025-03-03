@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Plus, Trash2 } from 'lucide-react';
@@ -12,6 +12,24 @@ interface FormTableProps {
 }
 
 const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
+  // Ensure we always have exactly 3 rows for the voucher
+  useEffect(() => {
+    if (rows.length < 3) {
+      const newRows = [...rows];
+      while (newRows.length < 3) {
+        newRows.push({
+          id: uuidv4(),
+          fineCardNumber: '',
+          receiptNumber: '',
+          improvementAmount: 0,
+          fineAmount: 0,
+          dueAmount: 0,
+        });
+      }
+      setRows(newRows);
+    }
+  }, [rows, setRows]);
+
   const handleAddRow = () => {
     setRows([
       ...rows,
@@ -27,7 +45,10 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
   };
 
   const handleRemoveRow = (id: string) => {
-    setRows(rows.filter((row) => row.id !== id));
+    // We don't allow removing if it would result in less than 3 rows
+    if (rows.length > 3) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
   };
 
   const handleUpdateRow = (id: string, field: keyof VoucherRow, value: string | number) => {
@@ -37,18 +58,23 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
 
         const updatedRow = { ...row, [field]: value };
 
-        // Recalculate due amount when improvement or fine amount changes
-        if (field === 'improvementAmount' || field === 'fineAmount') {
-          updatedRow.dueAmount = calculateRowDueAmount(
-            field === 'improvementAmount' ? Number(value) : row.improvementAmount,
-            field === 'fineAmount' ? Number(value) : row.fineAmount
-          );
+        // Calculate fine amount as 50% of improvement amount
+        if (field === 'improvementAmount') {
+          const improvementAmount = Number(value);
+          const fineAmount = improvementAmount * 0.5; // 50% of improvement amount
+          updatedRow.fineAmount = fineAmount;
+          updatedRow.dueAmount = fineAmount; // Due amount is the same as fine amount
         }
 
         return updatedRow;
       })
     );
   };
+
+  // Calculate summary totals
+  const totalImprovementAmount = rows.reduce((sum, row) => sum + (row.improvementAmount || 0), 0);
+  const totalFineAmount = rows.reduce((sum, row) => sum + (row.fineAmount || 0), 0);
+  const totalDueAmount = rows.reduce((sum, row) => sum + (row.dueAmount || 0), 0);
 
   return (
     <div className="overflow-x-auto my-4">
@@ -65,7 +91,7 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
           </tr>
         </thead>
         <tbody className="divide-y divide-stone-200">
-          {rows.map((row, index) => (
+          {rows.slice(0, 3).map((row, index) => (
             <tr key={row.id} className="hover:bg-stone-50 transition-colors">
               <td className="p-3 text-center text-stone-500">{index + 1}</td>
               <td className="p-3">
@@ -93,43 +119,33 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
                   dir="rtl"
                 />
               </td>
-              <td className="p-3">
-                <Input
-                  type="number"
-                  value={row.fineAmount || ''}
-                  onChange={(e) => handleUpdateRow(row.id, 'fineAmount', Number(e.target.value))}
-                  className="font-arabic text-right"
-                  dir="rtl"
-                />
+              <td className="p-3 font-arabic text-right text-stone-600 font-medium">
+                {formatCurrency(row.fineAmount || 0)}
               </td>
               <td className="p-3 font-arabic text-right text-stone-600 font-medium">
                 {formatCurrency(row.dueAmount || 0)}
               </td>
               <td className="p-3 text-center">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => handleRemoveRow(row.id)}
-                  className="text-destructive hover:text-destructive/80"
-                >
-                  <Trash2 size={18} />
-                </Button>
+                {/* Button removed since we maintain exactly 3 rows */}
               </td>
             </tr>
           ))}
+          {/* Summary row */}
+          <tr className="bg-stone-100 font-bold">
+            <td colSpan={3} className="p-3 text-right font-arabic">الإجمالي</td>
+            <td className="p-3 font-arabic text-right border-t-2 border-stone-300">
+              {formatCurrency(totalImprovementAmount)}
+            </td>
+            <td className="p-3 font-arabic text-right border-t-2 border-stone-300">
+              {formatCurrency(totalFineAmount)}
+            </td>
+            <td className="p-3 font-arabic text-right border-t-2 border-stone-300">
+              {formatCurrency(totalDueAmount)}
+            </td>
+            <td className="p-3"></td>
+          </tr>
         </tbody>
       </table>
-
-      <div className="mt-4 flex justify-center">
-        <Button
-          onClick={handleAddRow}
-          variant="outline"
-          className="font-arabic flex items-center gap-2"
-        >
-          <Plus size={16} />
-          <span>إضافة صف جديد</span>
-        </Button>
-      </div>
     </div>
   );
 };

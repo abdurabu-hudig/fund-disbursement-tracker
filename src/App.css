@@ -73,36 +73,64 @@
   /* Ensure the document fits on A4 paper */
   @page {
     size: A4 portrait;
-    margin: 0.5cm; /* Add small margin */
+    margin: 0.3cm; /* Smaller margin to fit everything */
   }
   
   /* Adjust font sizes for better fit */
   h1 {
-    font-size: 1.5rem !important;
-    margin: 0.5rem 0 !important;
+    font-size: 1.3rem !important;
+    margin: 0.3rem 0 !important;
   }
   
   /* Reduce spacing to fit on one page */
-  .p-6, .p-4, .my-6, .mb-6 {
-    padding: 0.5rem !important;
-    margin: 0.25rem 0 !important;
+  .p-6, .p-4, .my-6, .mb-6, .my-4, .p-3 {
+    padding: 0.25rem !important;
+    margin: 0.15rem 0 !important;
   }
   
   /* Adjust table for printing */
   table th, table td {
-    padding: 0.25rem !important;
-    font-size: 0.75rem !important;
+    padding: 0.15rem !important;
+    font-size: 0.7rem !important;
+  }
+  
+  /* Make inputs and fields more compact */
+  .h-10 {
+    height: 1.5rem !important;
+  }
+  
+  /* Make table more compact */
+  table {
+    font-size: 10px !important;
   }
   
   /* Ensure the header image fits properly */
   .w-full img {
-    max-height: 80px !important;
+    max-height: 60px !important;
     object-fit: contain !important;
   }
   
   /* Signature section compact */
-  .grid-cols-3 {
+  .grid-cols-3, .grid {
+    display: grid;
     grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.25rem !important;
+    gap: 0.15rem !important;
+  }
+  
+  /* Recipient info more compact */
+  .space-y-1 > * {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .space-y-1 {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Reduce label size */
+  label {
+    font-size: 0.7rem !important;
+    margin-bottom: 0 !important;
   }
 }

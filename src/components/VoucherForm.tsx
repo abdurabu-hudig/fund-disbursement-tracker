@@ -11,7 +11,7 @@ import { cn } from '@/lib/utils';
 import { Calendar as CalendarIcon, Save, Printer, ArrowLeft } from 'lucide-react';
 import FormTable from './FormTable';
 import SignatureSection from './SignatureSection';
-import { VoucherRow, calculateVoucherSummary, formatCurrency } from '@/utils/calculations';
+import { VoucherRow } from '@/utils/calculations';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/components/ui/use-toast';
@@ -31,9 +31,23 @@ const VoucherForm: React.FC = () => {
       fineAmount: 0,
       dueAmount: 0,
     },
+    {
+      id: uuidv4(),
+      fineCardNumber: '',
+      receiptNumber: '',
+      improvementAmount: 0,
+      fineAmount: 0,
+      dueAmount: 0,
+    },
+    {
+      id: uuidv4(),
+      fineCardNumber: '',
+      receiptNumber: '',
+      improvementAmount: 0,
+      fineAmount: 0,
+      dueAmount: 0,
+    },
   ]);
-
-  const summary = calculateVoucherSummary(rows);
 
   const handleSave = () => {
     // Perform validation
@@ -68,7 +82,6 @@ const VoucherForm: React.FC = () => {
       recipientName,
       recipientPhone,
       rows,
-      summary,
     });
   };
 
@@ -147,30 +160,6 @@ const VoucherForm: React.FC = () => {
           <div className="my-4">
             <h3 className="font-arabic text-lg font-medium text-stone-700 mb-2 text-right">بيانات السند</h3>
             <FormTable rows={rows} setRows={setRows} />
-          </div>
-
-          {/* Summary */}
-          <div className="bg-stone-50 p-3 rounded-md border border-stone-200 my-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-              <div className="text-center p-1">
-                <h4 className="font-arabic text-stone-600 mb-1">إجمالي مبلغ التحسين</h4>
-                <p className="font-arabic text-xl font-medium text-stone-800">
-                  {formatCurrency(summary.totalImprovementAmount)}
-                </p>
-              </div>
-              <div className="text-center p-1">
-                <h4 className="font-arabic text-stone-600 mb-1">إجمالي مبلغ الغرامة</h4>
-                <p className="font-arabic text-xl font-medium text-stone-800">
-                  {formatCurrency(summary.totalFineAmount)}
-                </p>
-              </div>
-              <div className="text-center p-1 bg-teal-50 rounded-md border border-teal-100">
-                <h4 className="font-arabic text-teal-600 mb-1">الإجمالي المستحق</h4>
-                <p className="font-arabic text-xl font-medium text-teal-700">
-                  {formatCurrency(summary.totalDueAmount)}
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Recipient information */}
