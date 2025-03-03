@@ -60,20 +60,27 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
       <table className="min-w-full bg-white divide-y divide-stone-200 rounded-md overflow-hidden shadow-soft border-2 border-stone-300">
         <thead>
           <tr className="bg-stone-100 text-center">
-            <th className="font-arabic p-3 text-center border-2 border-stone-300">رقم كرت الغرامة</th>
-            <th className="font-arabic p-3 text-center border-2 border-stone-300">رقم سند التحصيل</th>
-            <th className="font-arabic p-3 text-center border-2 border-stone-300">مبلغ التحسين</th>
-            <th className="font-arabic p-3 text-center border-2 border-stone-300">مبلغ الغرامة</th>
             <th className="font-arabic p-3 text-center border-2 border-stone-300">المبلغ المستحق</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">مبلغ الغرامة</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">مبلغ التحسين</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">رقم سند التحصيل</th>
+            <th className="font-arabic p-3 text-center border-2 border-stone-300">رقم كرت الغرامة</th>
           </tr>
         </thead>
         <tbody>
           {rows.slice(0, 1).map((row, index) => (
             <tr key={row.id} className="hover:bg-stone-50 transition-colors border-2 border-stone-300">
+              <td className="p-3 font-arabic text-center border-2 border-stone-300">
+                {formatCurrency(row.dueAmount || 0)}
+              </td>
+              <td className="p-3 font-arabic text-center border-2 border-stone-300">
+                {formatCurrency(row.fineAmount || 0)}
+              </td>
               <td className="p-3 border-2 border-stone-300">
                 <Input
-                  value={row.fineCardNumber}
-                  onChange={(e) => handleUpdateRow(row.id, 'fineCardNumber', e.target.value)}
+                  type="number"
+                  value={row.improvementAmount || ''}
+                  onChange={(e) => handleUpdateRow(row.id, 'improvementAmount', Number(e.target.value))}
                   className="font-arabic text-center"
                   dir="rtl"
                 />
@@ -88,33 +95,26 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
               </td>
               <td className="p-3 border-2 border-stone-300">
                 <Input
-                  type="number"
-                  value={row.improvementAmount || ''}
-                  onChange={(e) => handleUpdateRow(row.id, 'improvementAmount', Number(e.target.value))}
+                  value={row.fineCardNumber}
+                  onChange={(e) => handleUpdateRow(row.id, 'fineCardNumber', e.target.value)}
                   className="font-arabic text-center"
                   dir="rtl"
                 />
               </td>
-              <td className="p-3 font-arabic text-center border-2 border-stone-300">
-                {formatCurrency(row.fineAmount || 0)}
-              </td>
-              <td className="p-3 font-arabic text-center border-2 border-stone-300">
-                {formatCurrency(row.dueAmount || 0)}
-              </td>
             </tr>
           ))}
-          {/* Summary row - spans receiptNumber and fineCardNumber columns */}
+          {/* Summary row - spans the first 2 columns */}
           <tr className="bg-stone-100 font-bold border-2 border-stone-300">
-            <td colSpan={2} className="p-3 text-center font-arabic border-2 border-stone-300">الاجمالي</td>
             <td className="p-3 font-arabic text-center border-2 border-stone-300">
-              {formatCurrency(totalImprovementAmount)}
+              {formatCurrency(totalDueAmount)}
             </td>
             <td className="p-3 font-arabic text-center border-2 border-stone-300">
               {formatCurrency(totalFineAmount)}
             </td>
             <td className="p-3 font-arabic text-center border-2 border-stone-300">
-              {formatCurrency(totalDueAmount)}
+              {formatCurrency(totalImprovementAmount)}
             </td>
+            <td colSpan={2} className="p-3 text-center font-arabic border-2 border-stone-300">الاجمالي</td>
           </tr>
         </tbody>
       </table>

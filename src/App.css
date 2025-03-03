@@ -1,4 +1,3 @@
-
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -116,10 +115,10 @@
     object-fit: contain !important;
   }
   
-  /* Signature section compact */
-  .grid-cols-3, .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr) !important;
+  /* Signature section compact - updated for new format */
+  .flex-row-reverse {
+    display: flex !important;
+    flex-direction: row-reverse !important;
     gap: 0.15rem !important;
   }
   
@@ -145,4 +144,3 @@
     border: none !important;
   }
 }
-
