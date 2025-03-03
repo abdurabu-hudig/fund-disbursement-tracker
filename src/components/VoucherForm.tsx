@@ -81,29 +81,29 @@ const VoucherForm: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 animate-fade-in page-transition">
+    <div className="container mx-auto p-4 animate-fade-in page-transition print:p-0">
       {/* A4 Paper Dimensions: 210mm × 297mm */}
-      <div className="bg-white rounded-lg shadow-soft overflow-hidden mb-6 max-w-[210mm] mx-auto min-h-[297mm] flex flex-col">
+      <div className="bg-white rounded-lg shadow-soft overflow-hidden mb-6 max-w-[210mm] mx-auto print:min-h-0 min-h-[297mm] flex flex-col">
         {/* Header with organization logo and information - Full width header */}
-        <div className="w-full border-b border-stone-200">
+        <div className="w-full border-b border-stone-200 print:max-h-16">
           <img 
             src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
             alt="صندوق تنمية الخدمات م/شبوة" 
-            className="w-full h-auto object-cover"
+            className="w-full h-auto object-cover print:object-contain print:max-h-16"
           />
         </div>
 
         {/* Voucher title */}
-        <div className="py-4 px-6 border-b border-stone-100">
+        <div className="py-2 px-4 border-b border-stone-100">
           <h1 className="text-2xl font-bold text-center font-arabic text-stone-800">
             سند صرف كرت تحصيل غرامة
           </h1>
         </div>
 
         {/* Date on the left side and location on the right */}
-        <div className="p-6">
-          <div className="flex flex-row-reverse justify-between items-start mb-6">
-            <div className="space-y-2 flex-1 ml-4">
+        <div className="p-4 print:p-2">
+          <div className="flex flex-row-reverse justify-between items-start mb-4">
+            <div className="space-y-1 flex-1 ml-4">
               <Label htmlFor="location" className="font-arabic text-right block">اسم الموقع / البوابة / النقطة</Label>
               <Input
                 id="location"
@@ -114,7 +114,7 @@ const VoucherForm: React.FC = () => {
                 placeholder="أدخل اسم الموقع"
               />
             </div>
-            <div className="space-y-2 w-48">
+            <div className="space-y-1 w-48">
               <Label htmlFor="date" className="font-arabic text-right block">التاريخ</Label>
               <Popover>
                 <PopoverTrigger asChild>
@@ -144,27 +144,27 @@ const VoucherForm: React.FC = () => {
           </div>
 
           {/* Data entry table */}
-          <div className="my-6">
-            <h3 className="font-arabic text-lg font-medium text-stone-700 mb-4 text-right">بيانات السند</h3>
+          <div className="my-4">
+            <h3 className="font-arabic text-lg font-medium text-stone-700 mb-2 text-right">بيانات السند</h3>
             <FormTable rows={rows} setRows={setRows} />
           </div>
 
           {/* Summary */}
-          <div className="bg-stone-50 p-4 rounded-md border border-stone-200 my-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="text-center p-2">
+          <div className="bg-stone-50 p-3 rounded-md border border-stone-200 my-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+              <div className="text-center p-1">
                 <h4 className="font-arabic text-stone-600 mb-1">إجمالي مبلغ التحسين</h4>
                 <p className="font-arabic text-xl font-medium text-stone-800">
                   {formatCurrency(summary.totalImprovementAmount)}
                 </p>
               </div>
-              <div className="text-center p-2">
+              <div className="text-center p-1">
                 <h4 className="font-arabic text-stone-600 mb-1">إجمالي مبلغ الغرامة</h4>
                 <p className="font-arabic text-xl font-medium text-stone-800">
                   {formatCurrency(summary.totalFineAmount)}
                 </p>
               </div>
-              <div className="text-center p-2 bg-teal-50 rounded-md border border-teal-100">
+              <div className="text-center p-1 bg-teal-50 rounded-md border border-teal-100">
                 <h4 className="font-arabic text-teal-600 mb-1">الإجمالي المستحق</h4>
                 <p className="font-arabic text-xl font-medium text-teal-700">
                   {formatCurrency(summary.totalDueAmount)}
@@ -174,8 +174,8 @@ const VoucherForm: React.FC = () => {
           </div>
 
           {/* Recipient information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
-            <div className="space-y-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+            <div className="space-y-1">
               <Label htmlFor="recipientName" className="font-arabic text-right block">اسم المستلم</Label>
               <Input
                 id="recipientName"
@@ -186,7 +186,7 @@ const VoucherForm: React.FC = () => {
                 placeholder="أدخل اسم المستلم"
               />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="recipientPhone" className="font-arabic text-right block">رقم هاتف المستلم</Label>
               <Input
                 id="recipientPhone"

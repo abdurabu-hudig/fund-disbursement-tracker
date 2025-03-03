@@ -60,6 +60,7 @@
   .bg-white {
     box-shadow: none !important;
     border-radius: 0 !important;
+    min-height: auto !important; /* Remove min-height to fit content */
   }
   
   /* Hide navigation and action buttons when printing */
@@ -72,6 +73,36 @@
   /* Ensure the document fits on A4 paper */
   @page {
     size: A4 portrait;
-    margin: 0;
+    margin: 0.5cm; /* Add small margin */
+  }
+  
+  /* Adjust font sizes for better fit */
+  h1 {
+    font-size: 1.5rem !important;
+    margin: 0.5rem 0 !important;
+  }
+  
+  /* Reduce spacing to fit on one page */
+  .p-6, .p-4, .my-6, .mb-6 {
+    padding: 0.5rem !important;
+    margin: 0.25rem 0 !important;
+  }
+  
+  /* Adjust table for printing */
+  table th, table td {
+    padding: 0.25rem !important;
+    font-size: 0.75rem !important;
+  }
+  
+  /* Ensure the header image fits properly */
+  .w-full img {
+    max-height: 80px !important;
+    object-fit: contain !important;
+  }
+  
+  /* Signature section compact */
+  .grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.25rem !important;
   }
 }
