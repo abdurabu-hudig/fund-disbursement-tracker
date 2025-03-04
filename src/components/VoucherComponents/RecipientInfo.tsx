@@ -17,7 +17,7 @@ const RecipientInfo: React.FC<RecipientInfoProps> = ({
   setRecipientPhone 
 }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+    <div className="grid grid-cols-1 gap-4 my-4">
       <div className="space-y-1">
         <Label htmlFor="recipientName" className="font-arabic text-right block">اسم المستلم</Label>
         <Input
