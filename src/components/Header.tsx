@@ -25,14 +25,16 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
     });
   };
 
-  // Logo component that uses the new Fund logo
+  // Logo component that uses the new Fund logo with circular frame
   const Logo = () => (
-    <div className="w-10 h-10 relative">
-      <img 
-        src="/lovable-uploads/64963e18-3ab9-49cc-a0c3-10ec2e97a303.png" 
-        alt="صندوق تنمية الخدمات" 
-        className="w-full h-full object-contain"
-      />
+    <div className="w-12 h-12 relative rounded-full overflow-hidden border-2 border-gold-500 p-1 bg-white shadow-soft">
+      <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+        <img 
+          src="/lovable-uploads/64963e18-3ab9-49cc-a0c3-10ec2e97a303.png" 
+          alt="صندوق تنمية الخدمات" 
+          className="w-full h-full object-contain"
+        />
+      </div>
     </div>
   );
 
