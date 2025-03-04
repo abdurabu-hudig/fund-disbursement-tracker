@@ -18,10 +18,14 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
     navigate('/');
   };
 
-  // Placeholder for logo - replace with actual logo
-  const LogoPlaceholder = () => (
-    <div className="w-10 h-10 rounded-full bg-teal-600 flex items-center justify-center text-white">
-      <span className="font-bold">ص</span>
+  // Logo component that uses the Development Fund logo
+  const Logo = () => (
+    <div className="w-10 h-10 relative">
+      <img 
+        src="/lovable-uploads/bf2bdbf7-b3e4-404b-a8fe-6366d5cd9e78.png" 
+        alt="صندوق تنمية الخدمات" 
+        className="w-full h-full object-contain"
+      />
     </div>
   );
 
@@ -34,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
             variant="ghost"
             size="icon"
             onClick={onToggleSearch}
-            className="text-stone-700 hover:text-teal-600 transition-colors"
+            className="text-stone-700 hover:text-red-500 transition-colors"
           >
             <Search size={20} />
           </Button>
@@ -42,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
             variant="ghost"
             size="icon"
             onClick={handleLogout}
-            className="text-stone-700 hover:text-teal-600 transition-colors"
+            className="text-stone-700 hover:text-red-500 transition-colors"
           >
             <LogOut size={20} />
           </Button>
@@ -55,7 +59,7 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
 
         {/* Right side - Logo */}
         <div className="flex-shrink-0">
-          <LogoPlaceholder />
+          <Logo />
         </div>
       </div>
     </header>

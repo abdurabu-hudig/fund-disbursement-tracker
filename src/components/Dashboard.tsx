@@ -112,7 +112,7 @@ const Dashboard: React.FC = () => {
           <h2 className="text-2xl font-medium text-stone-800 font-arabic">سندات الصرف</h2>
           <Button 
             onClick={handleCreateVoucher}
-            className="font-arabic flex items-center gap-2 bg-teal-600 hover:bg-teal-700 shadow-soft"
+            className="font-arabic flex items-center gap-2 bg-red-500 hover:bg-red-600 shadow-soft"
           >
             <PlusCircle size={18} />
             <span>إنشاء سند جديد</span>
@@ -129,7 +129,7 @@ const Dashboard: React.FC = () => {
               >
                 <CardContent className="p-5">
                   <div className="flex justify-between items-start mb-4">
-                    <div className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-sm font-arabic">
+                    <div className="bg-gold-100 text-gold-800 px-3 py-1 rounded-full text-sm font-arabic">
                       {voucher.voucherNumber}
                     </div>
                     <div className="text-sm text-stone-500 font-arabic">
@@ -147,7 +147,7 @@ const Dashboard: React.FC = () => {
                   
                   <div className="flex justify-between items-center pt-3 border-t border-stone-100">
                     <div className="text-sm text-stone-500 font-arabic">المبلغ الإجمالي</div>
-                    <div className="text-lg font-medium text-teal-700 font-arabic">
+                    <div className="text-lg font-medium text-red-600 font-arabic">
                       {new Intl.NumberFormat('ar-SA').format(voucher.totalAmount)}
                     </div>
                   </div>
@@ -173,7 +173,7 @@ const Dashboard: React.FC = () => {
             <Button 
               variant="outline" 
               onClick={() => setFilteredVouchers(vouchers)}
-              className="mt-4 font-arabic"
+              className="mt-4 font-arabic border-gold-500 text-gold-700 hover:bg-gold-50"
             >
               عرض جميع السندات
             </Button>

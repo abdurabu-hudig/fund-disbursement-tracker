@@ -63,7 +63,31 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors
+				// Custom colors from the logo
+				red: {
+					50: '#ffe6e6',
+					100: '#ffcccc',
+					200: '#ff9999',
+					300: '#ff6666',
+					400: '#ff3333',
+					500: '#ff0000', // This is the bright red from the logo
+					600: '#cc0000',
+					700: '#990000',
+					800: '#660000',
+					900: '#330000',
+				},
+				gold: {
+					50: '#faf3d7',
+					100: '#f5e7b0',
+					200: '#f0db88',
+					300: '#ebcf61',
+					400: '#e6c339',
+					500: '#d6b94d', // This is the gold color from the logo
+					600: '#c1a745',
+					700: '#ad953e',
+					800: '#998236',
+					900: '#846e2f',
+				},
 				teal: {
 					50: '#f0fdfa',
 					100: '#ccfbf1',
