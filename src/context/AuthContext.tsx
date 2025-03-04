@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { toast } from '@/components/ui/use-toast';
+import { toast } from '@/hooks/use-toast';
 
 interface User {
   id: string;
@@ -54,18 +54,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(MOCK_USER);
       localStorage.setItem('user', JSON.stringify(MOCK_USER));
       setIsLoading(false);
+      
+      // تحسين رسالة الإشعار عند تسجيل الدخول
       toast({
-        title: "تم تسجيل الدخول بنجاح",
-        description: "مرحبًا بك في نظام صندوق تنمية الخدمات",
+        title: "مرحباً بك في نظام صندوق تنمية الخدمات",
+        description: `تم تسجيل دخولك بنجاح، ${MOCK_USER.name}`,
+        className: "font-arabic rtl bg-white border-gold-500",
       });
+      
       return true;
     } else {
       setIsLoading(false);
+      
+      // تحسين رسالة خطأ تسجيل الدخول
       toast({
         title: "فشل تسجيل الدخول",
-        description: "اسم المستخدم أو كلمة المرور غير صحيحة",
-        variant: "destructive"
+        description: "اسم المستخدم أو كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى",
+        variant: "destructive",
+        className: "font-arabic rtl"
       });
+      
       return false;
     }
   };
@@ -73,10 +81,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
-    toast({
-      title: "تم تسجيل الخروج",
-      description: "تم تسجيل خروجك من النظام",
-    });
   };
 
   return (

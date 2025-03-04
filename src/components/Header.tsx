@@ -4,6 +4,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Search, LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
 
 interface HeaderProps {
   onToggleSearch?: () => void;
@@ -16,6 +17,12 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
   const handleLogout = () => {
     logout();
     navigate('/');
+    // تحسين رسالة الإشعار عند تسجيل الخروج
+    toast({
+      title: "تم تسجيل الخروج بنجاح",
+      description: "نتمنى لك يومًا سعيدًا",
+      className: "font-arabic rtl bg-white border-gold-500",
+    });
   };
 
   // Logo component that uses the Development Fund logo
