@@ -25,11 +25,11 @@ const Header: React.FC<HeaderProps> = ({ onToggleSearch }) => {
     });
   };
 
-  // Logo component that uses the Development Fund logo
+  // Logo component that uses the new Fund logo
   const Logo = () => (
     <div className="w-10 h-10 relative">
       <img 
-        src="/lovable-uploads/bf2bdbf7-b3e4-404b-a8fe-6366d5cd9e78.png" 
+        src="/lovable-uploads/64963e18-3ab9-49cc-a0c3-10ec2e97a303.png" 
         alt="صندوق تنمية الخدمات" 
         className="w-full h-full object-contain"
       />

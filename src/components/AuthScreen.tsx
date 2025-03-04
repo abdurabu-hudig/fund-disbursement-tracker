@@ -17,10 +17,14 @@ const AuthScreen: React.FC = () => {
     await login(username, password);
   };
 
-  // Placeholder for logo - replace with actual logo
-  const LogoPlaceholder = () => (
-    <div className="w-20 h-20 rounded-full bg-teal-600 flex items-center justify-center text-white mx-auto">
-      <span className="font-bold text-xl font-arabic">صندوق</span>
+  // Logo component using the actual logo image
+  const Logo = () => (
+    <div className="w-32 h-32 mx-auto">
+      <img 
+        src="/lovable-uploads/64963e18-3ab9-49cc-a0c3-10ec2e97a303.png" 
+        alt="صندوق تنمية الخدمات م/شبوة" 
+        className="w-full h-full object-contain"
+      />
     </div>
   );
 
@@ -28,7 +32,7 @@ const AuthScreen: React.FC = () => {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-stone-50 to-stone-100">
       <div className="w-full max-w-md animate-fade-in">
         <div className="mb-8 text-center">
-          <LogoPlaceholder />
+          <Logo />
           <h1 className="mt-6 text-2xl font-bold text-stone-800 font-arabic">صندوق تنمية الخدمات م/شبوة</h1>
           <p className="mt-2 text-stone-500 font-arabic">نظام إدارة سندات الصرف</p>
         </div>
