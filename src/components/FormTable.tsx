@@ -83,6 +83,7 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
                   onChange={(e) => handleUpdateRow(row.id, 'improvementAmount', Number(e.target.value))}
                   className="font-arabic text-center"
                   dir="rtl"
+                  inputMode="numeric"
                 />
               </td>
               <td className="p-3 border-2 border-stone-300">

@@ -8,6 +8,7 @@ import { ar } from 'date-fns/locale';
 import { cn } from '@/lib/utils';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
+import { formatDate } from '@/utils/calculations';
 
 interface DateSelectorProps {
   date: Date;
@@ -29,7 +30,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({ date, setDate }) => {
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0" />
-            {date ? format(date, 'PPP', { locale: ar }) : "حدد التاريخ"}
+            {date ? formatDate(date) : "حدد التاريخ"}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">

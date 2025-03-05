@@ -43,9 +43,26 @@ export const calculateVoucherSummary = (
 };
 
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('ar-SA', {
+  // Use Arabic numerals with 'ar-SA-u-nu-arab' locale to ensure all digits are Arabic
+  return new Intl.NumberFormat('ar-SA-u-nu-arab', {
     style: 'decimal',
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   }).format(amount);
+};
+
+// Format date in YYYY/MM/DD format using Arabic numerals
+export const formatDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  
+  // Convert to Arabic numerals
+  const arabicFormatter = new Intl.NumberFormat('ar-SA-u-nu-arab');
+  const arabicYear = arabicFormatter.format(year);
+  const arabicMonth = arabicFormatter.format(month);
+  const arabicDay = arabicFormatter.format(day);
+  
+  // Format as YYYY/M/D
+  return `${arabicYear}/${arabicMonth}/${arabicDay}`;
 };
