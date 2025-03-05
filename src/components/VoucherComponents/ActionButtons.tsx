@@ -46,7 +46,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ onSave, location, recipie
   };
 
   return (
-    <div className="mt-auto bg-stone-50 p-4 border-t border-stone-200 flex flex-wrap gap-3 justify-between">
+    <div className="mt-auto bg-stone-50 p-4 border-t border-stone-200 flex flex-wrap gap-3 justify-between print:hidden">
       <Button variant="outline" onClick={handleBackToDashboard} className="font-arabic flex items-center gap-2">
         <ArrowLeft size={16} />
         <span>العودة للرئيسية</span>

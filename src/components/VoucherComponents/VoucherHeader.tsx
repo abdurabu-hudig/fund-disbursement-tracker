@@ -5,7 +5,7 @@ const VoucherHeader: React.FC = () => {
   return (
     <>
       {/* Header with organization logo and information - Full width header */}
-      <div className="w-full border-b border-stone-200 print:max-h-16">
+      <div className="w-full border-b border-stone-200 print:w-screen print:max-w-none print:mx-[-0.3cm] print:mt-[-0.3cm]">
         <img 
           src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
           alt="صندوق تنمية الخدمات م/شبوة" 
