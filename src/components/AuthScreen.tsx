@@ -17,16 +17,14 @@ const AuthScreen: React.FC = () => {
     await login(username, password);
   };
 
-  // Logo component using the actual logo image with circular frame
+  // Logo component without circular frame
   const Logo = () => (
-    <div className="w-36 h-36 mx-auto rounded-full overflow-hidden border-4 border-gold-500 p-2 bg-white shadow-soft">
-      <div className="w-full h-full rounded-full overflow-hidden flex items-center justify-center">
-        <img 
-          src="/lovable-uploads/64963e18-3ab9-49cc-a0c3-10ec2e97a303.png" 
-          alt="صندوق تنمية الخدمات م/شبوة" 
-          className="w-full h-full object-contain"
-        />
-      </div>
+    <div className="w-36 h-36 mx-auto flex items-center justify-center">
+      <img 
+        src="/lovable-uploads/64963e18-3ab9-49cc-a0c3-10ec2e97a303.png" 
+        alt="صندوق تنمية الخدمات م/شبوة" 
+        className="w-full h-full object-contain"
+      />
     </div>
   );
 
