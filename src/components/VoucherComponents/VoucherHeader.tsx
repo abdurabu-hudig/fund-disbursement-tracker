@@ -9,7 +9,7 @@ const VoucherHeader: React.FC = () => {
         <img 
           src="/lovable-uploads/0a4a60d1-2d0a-470d-96c0-153e9f0487c9.png" 
           alt="صندوق تنمية الخدمات م/شبوة" 
-          className="w-full h-auto object-cover print:object-contain print:max-h-16"
+          className="w-full h-auto object-cover print:object-contain print:w-full"
         />
       </div>
 
