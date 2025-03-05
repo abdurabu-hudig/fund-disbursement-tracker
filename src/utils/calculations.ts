@@ -43,7 +43,7 @@ export const calculateVoucherSummary = (
 };
 
 export const formatCurrency = (amount: number): string => {
-  // Use Arabic numerals with 'ar-SA-u-nu-arab' locale to ensure all digits are Arabic
+  // Ensure all digits are Arabic by using 'ar-SA-u-nu-arab' locale
   return new Intl.NumberFormat('ar-SA-u-nu-arab', {
     style: 'decimal',
     minimumFractionDigits: 0,

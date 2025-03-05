@@ -50,6 +50,13 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
     );
   };
 
+  // Convert input value from Arabic numerals to standard digits for processing
+  const convertArabicToStandard = (value: string): string => {
+    return value
+      .replace(/[\u0660-\u0669]/g, (c) => (c.charCodeAt(0) - 0x0660).toString())
+      .replace(/[\u06F0-\u06F9]/g, (c) => (c.charCodeAt(0) - 0x06F0).toString());
+  };
+
   // Calculate summary totals
   const totalImprovementAmount = rows.reduce((sum, row) => sum + (row.improvementAmount || 0), 0);
   const totalFineAmount = rows.reduce((sum, row) => sum + (row.fineAmount || 0), 0);
@@ -78,9 +85,14 @@ const FormTable: React.FC<FormTableProps> = ({ rows, setRows }) => {
               </td>
               <td className="p-3 border-2 border-stone-300">
                 <Input
-                  type="number"
+                  type="text"
                   value={row.improvementAmount || ''}
-                  onChange={(e) => handleUpdateRow(row.id, 'improvementAmount', Number(e.target.value))}
+                  onChange={(e) => {
+                    const standardValue = convertArabicToStandard(e.target.value);
+                    if (standardValue === '' || /^\d*$/.test(standardValue)) {
+                      handleUpdateRow(row.id, 'improvementAmount', Number(standardValue));
+                    }
+                  }}
                   className="font-arabic text-center"
                   dir="rtl"
                   inputMode="numeric"
