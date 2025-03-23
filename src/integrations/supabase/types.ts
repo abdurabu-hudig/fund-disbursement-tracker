@@ -423,6 +423,51 @@ export type Database = {
           },
         ]
       }
+      vouchers: {
+        Row: {
+          created_at: string | null
+          date: string | null
+          fine_amount: number | null
+          id: string
+          improvement_amount: number | null
+          location: string | null
+          notes: string | null
+          recipient_name: string | null
+          recipient_phone: string | null
+          total_amount: number | null
+          voucher_details: Json | null
+          voucher_number: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          date?: string | null
+          fine_amount?: number | null
+          id?: string
+          improvement_amount?: number | null
+          location?: string | null
+          notes?: string | null
+          recipient_name?: string | null
+          recipient_phone?: string | null
+          total_amount?: number | null
+          voucher_details?: Json | null
+          voucher_number?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          date?: string | null
+          fine_amount?: number | null
+          id?: string
+          improvement_amount?: number | null
+          location?: string | null
+          notes?: string | null
+          recipient_name?: string | null
+          recipient_phone?: string | null
+          total_amount?: number | null
+          voucher_details?: Json | null
+          voucher_number?: string | null
+        }
+        Relationships: []
+      }
       work_settings: {
         Row: {
           break_time_end: string
