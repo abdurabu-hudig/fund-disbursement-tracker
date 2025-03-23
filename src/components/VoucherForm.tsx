@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/use-toast";
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { supabase } from '@/integrations/supabase/client';
 import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
@@ -76,7 +77,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 const VoucherForm: React.FC = () => {
   const [isSubmitting, setSubmitting] = useState(false);
-  const supabase = useSupabaseClient();
   const isMobile = useIsMobile();
 
   const form = useForm<FormValues>({
