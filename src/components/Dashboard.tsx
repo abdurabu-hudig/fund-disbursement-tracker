@@ -39,8 +39,12 @@ const Dashboard: React.FC = () => {
         if (error) throw error;
         
         if (data) {
-          setVouchers(data);
-          setFilteredVouchers(data);
+          // Filter out any placeholder or corrupted voucher data
+          const validVouchers = data.filter(
+            voucher => voucher.voucher_number && voucher.recipient_name
+          );
+          setVouchers(validVouchers);
+          setFilteredVouchers(validVouchers);
         }
       } catch (error) {
         console.error('Error fetching vouchers:', error);
@@ -100,12 +104,8 @@ const Dashboard: React.FC = () => {
   };
 
   const handleVoucherClick = (id: string) => {
-    // In a real app, navigate to view the voucher details
-    console.log(`View voucher ${id}`);
-    toast({
-      title: "عرض السند",
-      description: `جاري عرض تفاصيل السند رقم ${id}`,
-    });
+    // Navigate to view the voucher details
+    navigate(`/view-voucher/${id}`);
   };
 
   return (

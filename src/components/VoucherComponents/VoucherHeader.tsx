@@ -18,9 +18,15 @@ const VoucherHeader: React.FC = () => {
 
       {/* Voucher title */}
       <div className="py-2 px-4 border-b border-stone-100">
-        <h1 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold text-center font-arabic text-stone-800`}>
+        <h1 className={`font-bold text-center font-arabic text-stone-800 ${isMobile ? 'text-lg' : 'text-2xl'}`}>
           سند صرف كرت تحصيل غرامة
         </h1>
+        {isMobile && (
+          <div className="flex justify-between items-center mt-1 text-xs font-arabic text-stone-500">
+            <span className="location-text">الموقع</span>
+            <span className="date-text">{new Date().toLocaleDateString('ar-SA')}</span>
+          </div>
+        )}
       </div>
     </>
   );
