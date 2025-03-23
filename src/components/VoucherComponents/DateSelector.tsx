@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { Calendar as CalendarIcon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { formatDate } from '@/utils/calculations';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface DateSelectorProps {
   date: Date;
@@ -15,20 +16,27 @@ interface DateSelectorProps {
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({ date, setDate }) => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="space-y-1 w-48">
-      <Label htmlFor="date" className="font-arabic text-right block">التاريخ</Label>
+    <div className={`space-y-1 ${isMobile ? 'w-40' : 'w-48'}`}>
+      <Label 
+        htmlFor="date" 
+        className={`font-arabic text-right block ${isMobile ? 'text-xs' : 'text-sm'}`}
+      >
+        التاريخ
+      </Label>
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="date"
             variant="outline"
             className={cn(
-              "w-full justify-start text-right font-arabic",
+              `w-full justify-start text-right font-arabic ${isMobile ? 'text-sm h-8 py-0' : ''}`,
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4 rtl:ml-2 rtl:mr-0" />
+            <CalendarIcon className={`mr-2 ${isMobile ? 'h-3 w-3' : 'h-4 w-4'} rtl:ml-2 rtl:mr-0`} />
             {date ? formatDate(date) : "حدد التاريخ"}
           </Button>
         </PopoverTrigger>

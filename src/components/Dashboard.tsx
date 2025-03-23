@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { PlusCircle } from 'lucide-react';
 import Header from './Header';
@@ -7,56 +7,61 @@ import SearchBar, { SearchParams } from './SearchBar';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from '@/components/ui/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { formatDate } from '@/utils/calculations';
 
 interface VoucherItem {
   id: string;
-  voucherNumber: string;
-  date: string;
-  recipientName: string;
+  voucher_number: string;
+  created_at: string;
+  recipient_name: string;
   location: string;
-  totalAmount: number;
+  total_amount: number;
 }
-
-// Mock data for demonstration
-const mockVouchers: VoucherItem[] = [
-  {
-    id: '1',
-    voucherNumber: 'V20231001',
-    date: '2023-10-01',
-    recipientName: 'أحمد محمد',
-    location: 'بوابة الشمال',
-    totalAmount: 5500,
-  },
-  {
-    id: '2',
-    voucherNumber: 'V20231005',
-    date: '2023-10-05',
-    recipientName: 'محمد علي',
-    location: 'نقطة الشرق',
-    totalAmount: 3200,
-  },
-  {
-    id: '3',
-    voucherNumber: 'V20231010',
-    date: '2023-10-10',
-    recipientName: 'خالد أحمد',
-    location: 'بوابة الجنوب',
-    totalAmount: 4800,
-  },
-];
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const [vouchers, setVouchers] = useState<VoucherItem[]>(mockVouchers);
-  const [filteredVouchers, setFilteredVouchers] = useState<VoucherItem[]>(mockVouchers);
+  const [vouchers, setVouchers] = useState<VoucherItem[]>([]);
+  const [filteredVouchers, setFilteredVouchers] = useState<VoucherItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch vouchers from Supabase on component mount
+  useEffect(() => {
+    const fetchVouchers = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from('vouchers')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+        
+        if (data) {
+          setVouchers(data);
+          setFilteredVouchers(data);
+        }
+      } catch (error) {
+        console.error('Error fetching vouchers:', error);
+        toast({
+          title: "خطأ",
+          description: "حدث خطأ أثناء جلب البيانات",
+          variant: "destructive"
+        });
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchVouchers();
+  }, []);
 
   const toggleSearch = () => {
     setIsSearchVisible(!isSearchVisible);
   };
 
   const handleSearch = (params: SearchParams) => {
-    // In a real application, this would be a backend API call
     let results = [...vouchers];
     
     if (params.value) {
@@ -67,14 +72,15 @@ const Dashboard: React.FC = () => {
       results = vouchers.filter(voucher => {
         switch (params.searchType) {
           case 'date':
-            return voucher.date === searchValue;
+            // Compare just the date part of created_at
+            return voucher.created_at.split('T')[0] === searchValue;
           case 'voucherNumber':
-            return voucher.voucherNumber.toLowerCase().includes(searchValue);
+            return voucher.voucher_number?.toLowerCase().includes(searchValue);
           case 'cardNumber':
             // In a real app, we would search in the voucher details for card numbers
-            return true; // Mocked for now
+            return true; // Simplified for now
           case 'recipientName':
-            return voucher.recipientName.toLowerCase().includes(searchValue);
+            return voucher.recipient_name?.toLowerCase().includes(searchValue);
           default:
             return true;
         }
@@ -119,7 +125,11 @@ const Dashboard: React.FC = () => {
           </Button>
         </div>
         
-        {filteredVouchers.length > 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-pulse-slow text-stone-400">جاري التحميل...</div>
+          </div>
+        ) : filteredVouchers.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredVouchers.map((voucher) => (
               <Card 
@@ -130,25 +140,25 @@ const Dashboard: React.FC = () => {
                 <CardContent className="p-5">
                   <div className="flex justify-between items-start mb-4">
                     <div className="bg-gold-100 text-gold-800 px-3 py-1 rounded-full text-sm font-arabic">
-                      {voucher.voucherNumber}
+                      {voucher.voucher_number || '-'}
                     </div>
                     <div className="text-sm text-stone-500 font-arabic">
-                      {new Date(voucher.date).toLocaleDateString('ar-SA')}
+                      {voucher.created_at ? new Date(voucher.created_at).toLocaleDateString('ar-SA') : '-'}
                     </div>
                   </div>
                   
                   <h3 className="font-medium text-stone-800 mb-2 font-arabic text-right">
-                    {voucher.recipientName}
+                    {voucher.recipient_name || 'بدون اسم'}
                   </h3>
                   
                   <div className="text-stone-600 mb-3 font-arabic text-right">
-                    {voucher.location}
+                    {voucher.location || '-'}
                   </div>
                   
                   <div className="flex justify-between items-center pt-3 border-t border-stone-100">
                     <div className="text-sm text-stone-500 font-arabic">المبلغ الإجمالي</div>
                     <div className="text-lg font-medium text-red-600 font-arabic">
-                      {new Intl.NumberFormat('ar-SA').format(voucher.totalAmount)}
+                      {voucher.total_amount ? new Intl.NumberFormat('ar-SA').format(voucher.total_amount) : '0'}
                     </div>
                   </div>
                 </CardContent>

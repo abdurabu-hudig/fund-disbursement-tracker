@@ -1,7 +1,10 @@
 
 import React from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const VoucherHeader: React.FC = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <>
       {/* Header with organization logo and information - Full width header */}
@@ -15,7 +18,7 @@ const VoucherHeader: React.FC = () => {
 
       {/* Voucher title */}
       <div className="py-2 px-4 border-b border-stone-100">
-        <h1 className="text-2xl font-bold text-center font-arabic text-stone-800">
+        <h1 className={`${isMobile ? 'text-xl' : 'text-2xl'} font-bold text-center font-arabic text-stone-800`}>
           سند صرف كرت تحصيل غرامة
         </h1>
       </div>
