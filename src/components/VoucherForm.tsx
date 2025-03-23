@@ -135,9 +135,10 @@ const VoucherForm: React.FC = () => {
       setSubmitting(true);
       
       // Transform voucher_details to JSON compatible format
+      // Convert Date to ISO string format for Supabase
       const voucherData = {
         voucher_number: form.getValues("voucherNumber"),
-        date: form.getValues("date"),
+        date: form.getValues("date").toISOString(), // Convert Date to ISO string
         location: form.getValues("location"),
         recipient_name: form.getValues("recipientName"),
         recipient_phone: form.getValues("recipientPhone"),
@@ -145,7 +146,7 @@ const VoucherForm: React.FC = () => {
         improvement_amount: form.getValues("improvementAmount"),
         fine_amount: form.getValues("fineAmount"),
         notes: form.getValues("notes"),
-        voucher_details: JSON.stringify(form.getValues("voucherRows"))
+        voucher_details: form.getValues("voucherRows") // Pass as is, Supabase will handle the JSON conversion
       };
 
       const { error } = await supabase
